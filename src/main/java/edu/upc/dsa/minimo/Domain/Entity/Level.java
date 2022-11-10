@@ -6,15 +6,12 @@ public class Level {
     String levelId;
     String levelName;
     int points;
-    int numLevels;
     String date;
 
-    public Level(String levelId, String levelName, int points, String date,int numLevels) {
+    public Level(String levelId, String levelName, int points) {
         this.levelId = levelId;
         this.levelName = levelName;
         this.points = points;
-        this.date = date;
-        this.numLevels=numLevels;
     }
 
     public String getLevelId() {
@@ -48,9 +45,7 @@ public class Level {
     public void setDate(String date) {
         this.date = date;
     }
-    public void levelsPassed(int quantity){
-        this.numLevels=numLevels+quantity;
-    }
+
     public boolean isNull(){
         return(Objects.equals(levelId,""));
     }

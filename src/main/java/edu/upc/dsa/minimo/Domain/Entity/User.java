@@ -1,5 +1,7 @@
 package edu.upc.dsa.minimo.Domain.Entity;
 
+import edu.upc.dsa.minimo.Domain.Entity.Exceptions.GameNotExists;
+
 import java.util.LinkedList;
 import java.util.List;
 
@@ -7,7 +9,18 @@ public class User {
     String userId;
     String userName;
     String userSurname;
+    int points;
+
+    public int getPoints() {
+        return points;
+    }
+
+    public void setPoints(int points) {
+        this.points = points;
+    }
+
     List<Game> gamesPlayed;
+    List<Level> levelsPassed;
 
     public User(String userId, String userName, String userSurname, List<Game> gamesPlayed) {
         this.userId = userId;
