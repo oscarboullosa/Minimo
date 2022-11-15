@@ -13,10 +13,10 @@ public class Level {
         this.levelId= RandomId.getId();
     }
 
-    public Level(String levelName, String levelDescription, int points) {
+    public Level(String levelName,int points,String levelDate) {
         this.levelName = levelName;
-        this.levelDescription = levelDescription;
         this.points = points;
+        this.levelDate=levelDate;
     }
 
     public String getLevelId() {
@@ -45,7 +45,7 @@ public class Level {
 
     public int getPoints() {
         return points;
-    }
+    }//Cada nivel tendrá una puntuación. Si la puntuación del jugador está por encima de la puntuación del nivel, pasará de nivel
 
     public void setPoints(int points) {
         this.points = points;
@@ -58,4 +58,5 @@ public class Level {
     public void setLevelDate() {
         this.levelDate = Date.getDate();
     }
+
 }
