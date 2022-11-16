@@ -21,6 +21,7 @@ public class User {
         this.userName = userName;
         this.userSurname = userSurname;
         this.userId=userId;
+        this.userGames=new LinkedList<>();
     }
 
     public String getUserId() {

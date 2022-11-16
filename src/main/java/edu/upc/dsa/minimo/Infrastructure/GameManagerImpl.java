@@ -196,8 +196,10 @@ public List<Game> gamesFromUser(String userId)throws UserNotFoundException{
     }
     List<Game> games0=new ArrayList<>();
     for(int i=0;i<games.size();i++){
-        if(this.games.get(i).getGameId().equals(getUser(userId).getUserGames().get(i).getGameId())){
-            games0.add(getGame(this.games.get(i).getGameId()));
+        for(int j=0;j<getUser(userId).getUserGames().size();j++) {
+            if (this.games.get(i).getGameId().equals(getUser(userId).getUserGames().get(j).getGameId())) {
+                games0.add(getGame(this.games.get(i).getGameId()));
+            }
         }
     }
     return games0;
