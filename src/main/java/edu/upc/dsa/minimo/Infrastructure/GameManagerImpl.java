@@ -8,10 +8,7 @@ import edu.upc.dsa.minimo.Domain.Entity.VO.CurrentGame;
 import edu.upc.dsa.minimo.Domain.GameManager;
 import org.apache.log4j.Logger;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class GameManagerImpl implements GameManager {
     private static GameManager instance;
@@ -64,6 +61,10 @@ resultado de la operación es que el usuario entra en el primer nivel con
 indicar el error. Un jugador SÓLO puede estar en una partida al mismo
 tiempo. En caso que el jugador ya tenga una partida activa, se deberá
 indicar el error.*/
+public void addUserToGame(String gameId,String userId){
+    Game game=getGame(gameId);
+    game.addUserToGame(getUser(userId).getUserName(),getUser(userId).getUserSurname());
+}
 
 /*Consulta del nivel actual. Dado un identificador de un usuario que está
 en una partida en curso, se deberá indicar el nivel actual y la partida. En
@@ -115,10 +116,16 @@ public void endGame(String userId){
 por puntuación (descendente). Se indicará un juego y se
 proporcionará la información. En caso que no exista el juego se deberá
 indicar el error.*/
-
+public LinkedList<User> usersByPuntuation(String gameId){
+    Game game=getGame(gameId);//Me situo en el juego solicitado
+    return game.getGameUsers();
+}
 
 /*Consulta de las partidas en las que ha participado un usuario. En
 caso que el usuario no exista se deberá indicar un error.*/
+public List<Game> gamesFromUser(String userId){
+    return this.users.get(userId).getUserGames();
+}
 /*Consulta de la actividad de un usuario sobre un juego. Se
 proporciona un listado de información asociada a la actividad del usuario
 en el juego. Ejemplo: actividad(“juan”, “the game”): -> [ {level: 1, points:
@@ -127,7 +134,7 @@ points: 20, date: dd-mm-aaaa}]*/
 public List<Level> userActivityGame(String userId,String gameId){
     int indice=0;
     for(int i=0;i<getUser(userId).getUserGames().size();i++){
-        if(getUser(userId).getUserGames().get(i).equals(gameId)){
+        if(getUser(userId).getUserGames().get(i).getGameId().equals(getGame(gameId).getGameId())){
             indice=i;
         }
     }
