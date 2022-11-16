@@ -1,7 +1,9 @@
 package edu.upc.dsa.minimo.Domain.Entity;
 
+import edu.upc.dsa.minimo.Domain.Entity.Exceptions.UserBussyException;
 import edu.upc.dsa.minimo.Domain.Entity.TO.LevelInfo;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import static edu.upc.dsa.minimo.Domain.Entity.VO.Date.getDate;
@@ -11,13 +13,14 @@ public class User {
     String userName;
     String userSurname;
     int puntuation;
-    List<Game> userGames;
+    LinkedList<Game> userGames;
     Game currentGame;//Lo uso por simplificar un poco las cosas. Realmente sería el último elemento de la lista de userGames.
     int currentLevel;//Posicion en la que está el nivel actual en la lista de niveles de un juego
     LevelInfo level;
-    public User(String userName, String userSurname) {
+    public User(String userId,String userName, String userSurname) {
         this.userName = userName;
         this.userSurname = userSurname;
+        this.userId=userId;
     }
 
     public String getUserId() {
@@ -56,9 +59,16 @@ public class User {
         return userGames;
     }
 
-    public void setUserGames(Game newGame) { //Esta funcion añade un juego a un usuario, de esta forma podremos obtener todos los juegos a los que ha jugado el usuario. El último juego que añade será el juego al que juega actualmente
-        this.userGames.add(newGame); //setUserGames actuará como setter de currentGame y como agregador de juegos a la lista
+
+    public void setUserGames(Game newGame) throws UserBussyException { //Esta funcion añade un juego a un usuario, de esta forma podremos obtener todos los juegos a los que ha jugado el usuario. El último juego que añade será el juego al que juega actualmente
+        if(currentGame!=null){
+            throw new UserBussyException();
+        }
+        this.userGames.add(newGame);
         this.currentGame=newGame;
+        this.currentLevel=1;
+        this.puntuation=50;
+
     }
 
     public Game getCurrentGame() {

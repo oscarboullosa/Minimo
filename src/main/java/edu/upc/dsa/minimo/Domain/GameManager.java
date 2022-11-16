@@ -65,9 +65,13 @@ points: 20, date: dd-mm-aaaa}]*/
     /*Se añaden clases que no se demandan, pero se sobreentiende*/
     public int size();
 
-    public void addUser(String userName,String userSurname);
-    public void addLevel(String levelName,int points,String levelDate);
+    public void addUser(String userId,String userName,String userSurname);
 
+
+    public void addLevel(String levelName, int points, String levelDate);
+    public int numUsers();
+    public int numGames();
+    public int numLevels();
 
 
 

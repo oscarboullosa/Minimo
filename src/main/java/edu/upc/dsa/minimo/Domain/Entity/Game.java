@@ -71,8 +71,8 @@ public class Game {
     public void addLevelToGame(String levelName, int points, String levelDate) {
         gameLevels.add(new Level(levelName, points, levelDate));
     }
-    public void addUserToGame(String userName, String userSurname){
-        gameUsers.add(new User(userName,userSurname));
+    public void addUserToGame(String userId,String userName, String userSurname){
+        gameUsers.add(new User(userId,userName,userSurname));
     }
 
     public Level getLevel(int i) {

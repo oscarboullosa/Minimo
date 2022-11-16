@@ -6,7 +6,6 @@ import edu.upc.dsa.minimo.Domain.Entity.Exceptions.UserNotActiveGameException;
 import edu.upc.dsa.minimo.Domain.Entity.Exceptions.UserNotFoundException;
 import edu.upc.dsa.minimo.Domain.Entity.Game;
 import edu.upc.dsa.minimo.Domain.Entity.Level;
-import edu.upc.dsa.minimo.Domain.Entity.TO.LevelInfo;
 import edu.upc.dsa.minimo.Domain.Entity.User;
 import edu.upc.dsa.minimo.Domain.Entity.VO.CurrentGame;
 import edu.upc.dsa.minimo.Domain.GameManager;
@@ -59,9 +58,8 @@ nivel3).*/
         this.games.add(new Game(gameId,description,levelNum));
     }
     @Override
-    public void addUser(String userName,String userSurname){
-        User user=new User(userName,userSurname);
-        this.users.put(user.getUserId(),user);
+    public void addUser(String userId, String userName, String userSurname){
+        this.users.put(userId,new User(userId,userName,userSurname));
     }
     @Override
     public void addLevel(String levelName,int points,String levelDate){
@@ -86,7 +84,8 @@ public void addUserToGame(String gameId,String userId) throws GameNotFoundExcept
         logger.warn("Game with id: "+gameId+" does not exist");
         throw new GameNotFoundException();
     }
-    game.addUserToGame(getUser(userId).getUserName(),getUser(userId).getUserSurname());
+    User user=getUser(userId);
+    user.setUserGames(game);
     logger.info("The game will start!");
 }
 
@@ -195,7 +194,13 @@ public List<Game> gamesFromUser(String userId)throws UserNotFoundException{
         logger.warn("User with id: "+userId+" does not exist");
         throw new UserNotFoundException();
     }
-    return this.users.get(userId).getUserGames();
+    List<Game> games0=new ArrayList<>();
+    for(int i=0;i<games.size();i++){
+        if(this.games.get(i).getGameId().equals(getUser(userId).getUserGames().get(i).getGameId())){
+            games0.add(getGame(this.games.get(i).getGameId()));
+        }
+    }
+    return games0;
 }
 /*Consulta de la actividad de un usuario sobre un juego. Se
 proporciona un listado de información asociada a la actividad del usuario
@@ -220,5 +225,16 @@ public List<Level> userActivityGame(String userId,String gameId) throws UserNotF
     }
     return getUser(userId).getUserGames().get(indice).getGameLevels();
 }
-
+    @Override
+    public int numUsers(){
+    return users.size();
+    }
+    @Override
+    public int numGames(){
+    return games.size();
+    }
+    @Override
+    public int numLevels(){
+    return levels.size();
+}
 }

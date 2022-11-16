@@ -1,4 +1,4 @@
-package edu.upc.dsa.minimo.UI.services;
+/*package edu.upc.dsa.minimo.UI.services;
 
 import edu.upc.dsa.minimo.Domain.GameManager;
 import edu.upc.dsa.minimo.Infrastructure.GameManagerImpl;
@@ -36,3 +36,4 @@ public class GameService {
     @ApiOperation(value="Add a new user",notes="Add user")
     @ApiResponse()
 }
+*/
