@@ -1,8 +1,9 @@
-package edu.upc.dsa.minimo.Domain.Entity.VO;
+package edu.upc.dsa.minimo.domain.entity.vo;
 
 public class CurrentGame {
     String gameId;
     int level;
+    public CurrentGame(){}
 
     public CurrentGame(String gameId, int level) {
         this.gameId = gameId;
